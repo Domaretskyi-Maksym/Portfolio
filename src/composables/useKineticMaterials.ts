@@ -1,6 +1,5 @@
 import { inject, onUnmounted, provide, type InjectionKey } from 'vue'
 import { createKineticMaterials, disposeKineticMaterials, type KineticMaterials } from '../three/kinetic/materials'
-
 const KINETIC_MATERIALS_KEY: InjectionKey<KineticMaterials> = Symbol('kinetic-materials')
 
 /** Creates the shared PBR material library for a subtree and disposes it with the provider. */

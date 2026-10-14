@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
-import { PCFShadowMap } from 'three'
+import { VSMShadowMap } from 'three'
 import { usePointerTracking } from '../../composables/usePointerTracking'
 import KineticEffects from './KineticEffects.vue'
 import KineticWorld from './KineticWorld.vue'
@@ -16,7 +16,7 @@ usePointerTracking()
     :dpr="[1, 1.5]"
     :antialias="false"
     shadows
-    :shadow-map-type="PCFShadowMap"
+    :shadow-map-type="VSMShadowMap"
     power-preference="high-performance"
   >
     <TresFog :args="[BACKGROUND, 18, 42]" attach="fog" />

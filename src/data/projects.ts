@@ -4,6 +4,8 @@ export interface Project {
   tag: string
   description: string
   accent: string
+  /** Screen recording served from `public/` (e.g. `/videos/alpha.mp4`); falls back to an animated preview. */
+  video?: string
 }
 
 export const projects: Project[] = [
@@ -13,6 +15,7 @@ export const projects: Project[] = [
     tag: 'WebGL · Vue',
     description: 'Інтерактивна 3D-візуалізація даних у реальному часі.',
     accent: '#60a5fa',
+    video: '/videos/project-alpha.mp4',
   },
   {
     id: 'beta',

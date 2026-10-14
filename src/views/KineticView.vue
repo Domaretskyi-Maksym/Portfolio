@@ -11,7 +11,7 @@ const SECTIONS: NavSection[] = [
 
 <template>
   <div class="relative bg-[#1d1e22]">
-    <SiteNav brand="Kinetic Machine" :sections="SECTIONS" :alternate="{ to: '/nebula', label: 'Living Nebula' }" />
+    <SiteNav brand="Kinetic Machine" :sections="SECTIONS" :alternate="{ to: '/shop', label: 'Showroom' }" />
 
     <div class="fixed inset-0 z-0">
       <KineticScene />
@@ -46,6 +46,10 @@ const SECTIONS: NavSection[] = [
           <p class="mt-4 leading-relaxed text-zinc-300">
             Інструменти, що щодня проходять через мій конвеєр: Vue, TypeScript, Three.js, GSAP, GLSL, Node.
           </p>
+          <p class="mt-4 text-sm text-zinc-400">
+            <span class="font-semibold text-[#f7b801]">Хапай</span> блок мишкою — підкинь або скинь зі стрічки, система
+            видасть новий.
+          </p>
         </div>
       </section>
 
@@ -54,7 +58,7 @@ const SECTIONS: NavSection[] = [
           <p class="text-xs font-semibold tracking-[0.4em] text-[#d62828] uppercase">03 · Screens</p>
           <h2 class="mt-3 text-3xl font-bold text-white">Проєкти</h2>
           <p class="mt-4 leading-relaxed text-zinc-300">
-            Карусель скляних екранів. Наведи на екран — ротор пригальмує, щоб його можна було роздивитись.
+            Карусель скляних екранів. Наведи — ротор зупиниться; зажми клік і тягни вліво/вправо, щоб крутити самому.
           </p>
         </div>
       </section>

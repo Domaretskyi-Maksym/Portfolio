@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.20.0",
     "@tresjs/cientos": "^5.9.3",
     "@tresjs/core": "^5.9.3",
     "@tresjs/post-processing": "^3.10.0",

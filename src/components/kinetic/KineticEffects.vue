@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  BloomPmndrs,
   DepthOfFieldPmndrs,
   EffectComposerPmndrs,
   N8AOPmndrs,
@@ -26,10 +27,23 @@ watch(
 
 <template>
   <EffectComposerPmndrs :multisampling="0">
-    <N8AOPmndrs :ao-radius="1.2" :distance-falloff="1" :intensity="2.5" :ao-samples="16" :denoise-samples="8" half-res />
-    <DepthOfFieldPmndrs ref="dofRef" :world-focus-range="5" :bokeh-scale="2.2" :resolution-scale="0.5" />
-    <TiltShiftPmndrs :focus-area="0.8" :feather="0.25" :kernel-size="1" />
+    <!-- Contact shadows in tight gaps (gear teeth, bolts, plate seams). -->
+    <N8AOPmndrs
+      :ao-radius="0.85"
+      :distance-falloff="0.6"
+      :intensity="3.2"
+      :ao-samples="24"
+      :denoise-samples="8"
+      :denoise-radius="10"
+      color="#05060a"
+      half-res
+    />
+    <!-- Macro lens: narrow focus band around the focused part, heavy bokeh in front and behind. -->
+    <DepthOfFieldPmndrs ref="dofRef" :world-focus-range="2.4" :bokeh-scale="4.5" :resolution-scale="0.5" />
+    <!-- HDR bloom: only emissive/LED surfaces brighter than 1.0 glow. -->
+    <BloomPmndrs :intensity="0.9" :luminance-threshold="1" :luminance-smoothing="0.25" mipmap-blur />
+    <TiltShiftPmndrs :focus-area="0.82" :feather="0.22" :kernel-size="1" />
     <ToneMappingPmndrs :mode="ToneMappingMode.AGX" />
-    <VignettePmndrs :offset="0.3" :darkness="0.55" />
+    <VignettePmndrs :offset="0.3" :darkness="0.6" />
   </EffectComposerPmndrs>
 </template>

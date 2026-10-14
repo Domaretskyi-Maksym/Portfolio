@@ -22,7 +22,8 @@ export interface CameraNode {
 export const CAMERA_NODES: CameraNode[] = [
   { id: 'core', position: [0.5, 0.8, 12], target: [1.6, -0.2, 0] },
   { id: 'conveyor', position: [11.6, -0.9, 7.6], target: [11.2, -2.5, 4] },
-  { id: 'screens', position: [-9.6, -0.2, 8.2], target: [-10.2, -0.8, 3] },
+  // Target sits on the front screen of the carousel so depth of field keeps it sharp.
+  { id: 'screens', position: [-9.6, -0.2, 8.2], target: [-10.4, -0.5, 4.8] },
 ]
 
 /** World point the camera is looking at — depth of field auto-focuses on it. */

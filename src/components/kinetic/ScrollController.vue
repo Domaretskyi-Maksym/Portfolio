@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { MathUtils, Vector2, Vector3, type PerspectiveCamera } from 'three'
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { useMechanism } from '../../composables/useMechanism'
 import { CAMERA_NODES, cameraFocus, type CameraNode } from '../../three/kinetic/layout'
 import { pointerState } from '../../three/pointer'
 
@@ -15,6 +16,20 @@ gsap.registerPlugin(ScrollTrigger)
  */
 const CAMERA_RESPONSE = 4
 const PARALLAX = new Vector2(0.35, 0.2)
+/** Handheld drift (radians) at idle, plus extra vibration per unit of mechanism over-speed. */
+const SHAKE_IDLE = 0.0016
+const SHAKE_PER_SPEED = 0.0011
+
+const { state: mechanism } = useMechanism()
+
+/** Layered incommensurate sines — smooth, non-repeating, cheaper than noise. */
+function drift(time: number, seed: number) {
+  return (
+    Math.sin(time * 0.63 + seed) * 0.55 +
+    Math.sin(time * 1.37 + seed * 2.1) * 0.3 +
+    Math.sin(time * 3.11 + seed * 4.7) * 0.15
+  )
+}
 
 const toProxy = ({ position, target }: CameraNode) => ({
   px: position[0],
@@ -55,7 +70,7 @@ const parallax = new Vector2()
 let isPlaced = false
 
 const { onBeforeRender } = useLoop()
-onBeforeRender(({ delta }) => {
+onBeforeRender(({ delta, elapsed }) => {
   const camera = cameraRef.value
   if (!camera) return
 
@@ -77,6 +92,13 @@ onBeforeRender(({ delta }) => {
     isPlaced = true
   }
   camera.lookAt(cameraFocus)
+
+  const shake = SHAKE_IDLE + Math.max(mechanism.speed - 1, 0) * SHAKE_PER_SPEED
+  // Faster machine → higher-frequency rumble on top of the slow handheld drift.
+  const rumble = elapsed * (1 + (mechanism.speed - 1) * 0.6)
+  camera.rotateY(drift(elapsed, 1.3) * shake + drift(rumble * 9, 7.1) * shake * 0.25)
+  camera.rotateX(drift(elapsed, 4.2) * shake * 0.8 + drift(rumble * 11, 2.9) * shake * 0.25)
+  camera.rotateZ(drift(elapsed, 8.6) * shake * 0.5)
 })
 </script>
 

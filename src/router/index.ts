@@ -17,6 +17,21 @@ const router = createRouter({
       component: () => import('../views/KineticView.vue'),
     },
     {
+      path: '/practice/ws/level-1',
+      name: 'ws-level-1',
+      component: () => import('../views/practice/WebSocketLevel1View.vue'),
+    },
+    {
+      path: '/practice/ws/level-2',
+      name: 'ws-level-2',
+      component: () => import('../views/practice/WebSocketLevel2View.vue'),
+    },
+    {
+      path: '/practice/ws/level-3',
+      name: 'ws-level-3',
+      component: () => import('../views/practice/WebSocketLevel3View.vue'),
+    },
+    {
       path: '/shop',
       component: () => import('../views/showroom/ShowroomLayout.vue'),
       children: [
